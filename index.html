@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gorev_4_1</title>
+    <style>
+        #numbers span {
+            display: inline-block;
+            width: 20px;
+            text-align: center;
+        }
+        .highlight {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <b>1'den 99'a kadar olan sayıları for döngüsü ile yan yana </b>
+    <button id="sortButton" onclick="sortNumbers()">Sırala</button> <br>
+    <button id="randomButton" onclick="randomSelect()" disabled>Rastgele Sayı Seç</button>
+    <div id="numbers" style="display: none;"></div>
+
+    <script>
+        
+        let numbers = [];
+        for (let i = 1; i <= 99; i++) {
+            numbers.push(i);
+        }
+
+        
+        function displayNumbers() {
+            const numbersDiv = document.getElementById('numbers');
+            numbersDiv.innerHTML = '';
+            for (let i = 0; i < numbers.length; i++) {
+                const span = document.createElement('span');
+                span.textContent = numbers[i];
+                numbersDiv.appendChild(span);
+                if ((i + 1) % 10 === 0) {
+                    numbersDiv.appendChild(document.createElement('br'));
+                }
+            }
+            numbersDiv.style.display = 'block';
+        }
+
+        
+        function sortNumbers() {
+            numbers.sort((a, b) => a - b);
+            displayNumbers();
+            document.getElementById('sortButton').disabled = true;
+            document.getElementById('randomButton').disabled = false;
+        }
+
+        
+        function randomSelect() {
+            if (document.getElementById('numbers').style.display === 'none') {
+                displayNumbers();
+            }
+            const randomIndex = Math.floor(Math.random() * numbers.length);
+            const numberSpans = document.getElementById('numbers').getElementsByTagName('span');
+            numberSpans[randomIndex].classList.add('highlight');
+        }
+
+        
+        document.getElementById('sortButton').disabled = false;
+    </script>
+</body>
+</html>
